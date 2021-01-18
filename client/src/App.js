@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Landing from "./components/home/Landing";
-// import Login from "./component/auth/Login";
+import Signup from "./components/auth/Signup";
 // import Register from "./component/auth/Register";
 // import Dashboard from "./component/layout/Dashboard";
 import setAuthToken from "./utils/setAuthToken";
@@ -35,9 +35,9 @@ function App() {
         <Navbar />
         <Route exact path='/' component={Landing} />
         <Switch>
-          {/* <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/dashboard' component={Dashboard} />
+          <Route exact path='/signup' component={Signup} />
+            {/* <Route exact path='/login' component={Login} /> */}
+            {/* <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/tasks' component={Tasks} />
             <Route exact path='/task/:id' component={Task} />
             <Route exact path='/add-task' component={AddTask} />
