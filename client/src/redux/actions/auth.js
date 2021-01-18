@@ -10,7 +10,7 @@ import {
   USER_LOADED,
   CLEAR_PROFILE
 } from "../actions/types";
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "../../utils/setAuthToken";
 
 // LOAD USER
 export const loadUser = () => async (dispatch) => {
