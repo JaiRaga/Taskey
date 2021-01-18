@@ -1,2 +1,2 @@
-# Task-Manager-App
+# Taskey
 A Fullstack Task Managing App.
