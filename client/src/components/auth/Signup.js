@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import {makeStyles, TextField, Grid, Button} from "@material-ui/core"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/actions/auth';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 const Signup = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
     const [signup, setSignup] = useState({
         name: '',
         email: '',
@@ -41,6 +43,10 @@ const Signup = () => {
 
         dispatch(register(signup))
         console.log(signup)
+    }
+
+    if (isAuthenticated) {
+        return <Redirect to="/home" />
     }
 
     return (
