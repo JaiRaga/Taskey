@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Grid, makeStyles, Hidden } from '@material-ui/core'
+import { Grid, makeStyles, Hidden, CircularProgress } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import Tasks from '../tasks/Tasks'
 import { loadTasks } from '../../redux/actions/task'
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
-		dispatch(loadTasks())
+		setTimeout(() => dispatch(loadTasks()), 300)
 	}, [])
 	const classes = useStyles()
 	const tasks = useSelector((state) => state.task.tasks)
@@ -31,7 +31,13 @@ const Home = () => {
 			</Hidden>
 
 			<Grid item xs={12} sm={8} md={6} className={classes.body}>
-				<Tasks tasks={tasks} />
+				{!!tasks.length ? (
+					<Tasks tasks={tasks} />
+				) : (
+					<Grid container item justify='center'>
+						<CircularProgress />
+					</Grid>
+				)}
 			</Grid>
 
 			<Hidden only={['xs']}>
