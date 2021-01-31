@@ -3,6 +3,7 @@ import { makeStyles, TextField, Grid, Button } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { login } from '../../redux/actions/auth'
+import { loadTasks } from '../../redux/actions/task'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -74,7 +75,7 @@ const Login = () => {
 				</Grid>
 			</Grid>
 			<Grid item className={classes.btnBody}>
-				<Button className={classes.btn} onClick={onSubmit}>
+				<Button onClick={onSubmit} color='primary' variant='contained'>
 					Submit
 				</Button>
 			</Grid>
