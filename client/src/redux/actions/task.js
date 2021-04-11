@@ -8,7 +8,7 @@ import {
 } from "./types";
 
 // Get all Tasks
-export const loadTask = () => async (dispatch) => {
+export const loadTasks = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/tasks");
 
@@ -16,6 +16,7 @@ export const loadTask = () => async (dispatch) => {
       type: GET_TASKS,
       payload: res.data
     });
+    console.log(res.data)
   } catch (err) {
     console.log(err);
   }
