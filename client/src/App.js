@@ -7,6 +7,7 @@ import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
 import Home from './components/home/Home'
 import Setting from './components/setting/Setting'
+import Profile from './components/profile/Profile'
 // import Register from "./component/auth/Register";
 // import Dashboard from "./component/layout/Dashboard";
 import setAuthToken from './utils/setAuthToken'
@@ -41,8 +42,9 @@ function App() {
 				<Switch>
 					<Route exact path='/signup' component={Signup} />
 					<Route exact path='/login' component={Login} />
-					<Route exact path='/settings' component={Setting} />
+					<PrivateRoute exact path='/settings' component={Setting} />
 					<PrivateRoute exact path='/home' component={Home} />
+					<PrivateRoute exact path='/profile' component={Profile} />
 					{/* <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/tasks' component={Tasks} />
             <Route exact path='/task/:id' component={Task} />
