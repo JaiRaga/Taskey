@@ -40,7 +40,7 @@ const Login = () => {
 		e.preventDefault()
 
 		dispatch(login(loginData))
-		console.log(loginData)
+		// console.log(loginData)
 	}
 
 	if (isAuthenticated) {
