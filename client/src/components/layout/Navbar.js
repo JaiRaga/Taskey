@@ -26,7 +26,6 @@ import PersonPinIcon from '@material-ui/icons/PersonPin'
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun'
 import AdjustIcon from '@material-ui/icons/Adjust'
 import { logout } from '../../redux/actions/auth'
-import Drawer from './Drawer'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -175,15 +174,20 @@ const Navbar = () => {
 			onKeyDown={toggleDrawer(anchor, false)}>
 			<List>
 				{[
-					{ name: 'Tasks', icon: <HomeIcon /> },
-					{ name: 'Profile', icon: <PersonPinIcon /> },
-					{ name: 'Setting', icon: <AdjustIcon /> },
-					{ name: 'Logout', icon: <DirectionsRunIcon /> },
+					{ name: 'Tasks', icon: <HomeIcon />, url: '/home' },
+					{ name: 'Profile', icon: <PersonPinIcon />, url: '/profile' },
+					{ name: 'Setting', icon: <AdjustIcon />, url: '/setting' },
+					{ name: 'Logout', icon: <DirectionsRunIcon />, url: '/' },
 				].map((page, index) => (
-					<ListItem button key={page.name}>
-						<ListItemIcon className={classes.icons}>{page.icon}</ListItemIcon>
-						<ListItemText primary={page.name} className={classes.drawerRight} />
-					</ListItem>
+					<Link to={page.url} underline='none' className={classes.link}>
+						<ListItem button key={page.name}>
+							<ListItemIcon className={classes.icons}>{page.icon}</ListItemIcon>
+							<ListItemText
+								primary={page.name}
+								className={classes.drawerRight}
+							/>
+						</ListItem>
+					</Link>
 				))}
 			</List>
 		</div>
@@ -215,7 +219,6 @@ const Navbar = () => {
 				<SwipeableDrawer
 					anchor={'left'}
 					open={state['left']}
-					// className={classes.drawer}
 					onClose={toggleDrawer('left', false)}
 					onOpen={toggleDrawer('left', true)}>
 					{list('left')}
