@@ -179,7 +179,7 @@ const Navbar = () => {
 			<List>
 				{/* Requires attention */}
 				<Link to='/profile' underline='none' className={classes.link}>
-					<ListItem>
+					<ListItem button>
 						<ListItemIcon>
 							<Avatar variant='rounded' />
 						</ListItemIcon>
