@@ -3,6 +3,7 @@ import { Grid, makeStyles, Hidden, CircularProgress } from '@material-ui/core'
 import { useSelector, useDispatch } from 'react-redux'
 import Tasks from '../tasks/Tasks'
 import { loadTasks } from '../../redux/actions/task'
+import CreateTask from '../tasks/CreateTask'
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -26,7 +27,7 @@ const Home = () => {
 		<Grid container justify='center' className={classes.root}>
 			<Hidden only={['xs']}>
 				<Grid item xs={0} sm={2} md={3} className={classes.sides}>
-					Sides
+					<CreateTask />
 				</Grid>
 			</Hidden>
 
