@@ -1,9 +1,18 @@
 import React, { useEffect } from 'react'
-import { Grid, makeStyles, Hidden, CircularProgress } from '@material-ui/core'
+import {
+	Grid,
+	makeStyles,
+	Hidden,
+	CircularProgress,
+	Fab,
+	Button,
+} from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add'
 import { useSelector, useDispatch } from 'react-redux'
 import Tasks from '../tasks/Tasks'
 import { loadTasks } from '../../redux/actions/task'
 import CreateTask from '../tasks/CreateTask'
+import { Fragment } from 'react'
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -12,6 +21,11 @@ const useStyles = makeStyles((theme) => ({
 	},
 	sides: {
 		// backgroundColor: "#666"
+	},
+	createTask: {
+		position: 'fixed',
+		bottom: theme.spacing(2),
+		right: theme.spacing(2),
 	},
 }))
 
@@ -33,7 +47,27 @@ const Home = () => {
 
 			<Grid item xs={12} sm={8} md={6} className={classes.body}>
 				{!!tasks.length ? (
-					<Tasks tasks={tasks} />
+					<Fragment>
+						<Tasks tasks={tasks} />
+						<Hidden only={['lg', 'xl']}>
+							<Fab
+								className={classes.createTask}
+								color='secondary'
+								aria-label='create task'>
+								<AddIcon />
+							</Fab>
+						</Hidden>
+						<Hidden only={['xs', 'sm', 'md']}>
+							<Button
+								className={classes.createTask}
+								color='secondary'
+								variant='contained'
+								size='large'
+								aria-label='create task'>
+								Create Task
+							</Button>
+						</Hidden>
+					</Fragment>
 				) : (
 					<Grid container item justify='center'>
 						<CircularProgress />
