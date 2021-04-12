@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import {
 	AppBar,
 	Toolbar,
+	Grid,
 	IconButton,
 	Typography,
 	makeStyles,
@@ -10,6 +11,8 @@ import {
 	ListItem,
 	ListItemIcon,
 	ListItemText,
+	Hidden,
+	SwipeableDrawer,
 } from '@material-ui/core'
 import { useHistory, Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
@@ -23,6 +26,7 @@ import PersonPinIcon from '@material-ui/icons/PersonPin'
 import DirectionsRunIcon from '@material-ui/icons/DirectionsRun'
 import AdjustIcon from '@material-ui/icons/Adjust'
 import { logout } from '../../redux/actions/auth'
+import Drawer from './Drawer'
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -49,6 +53,15 @@ const useStyles = makeStyles((theme) => ({
 	right: {
 		display: 'flex',
 		marginLeft: 'auto',
+	},
+	list: {
+		width: 250,
+		color: '#fff',
+		height: '100%',
+		backgroundColor: '#424642',
+	},
+	drawerRight: {
+		marginLeft: 25,
 	},
 }))
 
@@ -113,6 +126,7 @@ const Navbar = () => {
 
 	const guestLinks = (
 		<Fragment>
+			{/* <Hidden> */}
 			<List className={classes.right}>
 				<Link to='/login' className={classes.link} underline='none'>
 					<ListItem button>
@@ -132,7 +146,47 @@ const Navbar = () => {
 					</ListItem>
 				</Link>
 			</List>
+			{/* </Hidden> */}
 		</Fragment>
+	)
+
+	// Toggles side navigation
+	const [state, setState] = useState({
+		left: false,
+	})
+
+	const toggleDrawer = (anchor, open) => (event) => {
+		if (
+			event &&
+			event.type === 'keydown' &&
+			(event.key === 'Tab' || event.key === 'Shift')
+		) {
+			return
+		}
+
+		setState({ left: open })
+	}
+
+	const list = (anchor) => (
+		<div
+			className={classes.list}
+			role='presentation'
+			onClick={toggleDrawer(anchor, false)}
+			onKeyDown={toggleDrawer(anchor, false)}>
+			<List>
+				{[
+					{ name: 'Tasks', icon: <HomeIcon /> },
+					{ name: 'Profile', icon: <PersonPinIcon /> },
+					{ name: 'Setting', icon: <AdjustIcon /> },
+					{ name: 'Logout', icon: <DirectionsRunIcon /> },
+				].map((page, index) => (
+					<ListItem button key={page.name}>
+						<ListItemIcon className={classes.icons}>{page.icon}</ListItemIcon>
+						<ListItemText primary={page.name} className={classes.drawerRight} />
+					</ListItem>
+				))}
+			</List>
+		</div>
 	)
 
 	return (
@@ -143,18 +197,29 @@ const Navbar = () => {
 						edge='start'
 						className={classes.menuButton}
 						aria-label='menu'
-						onClick={() => history.push('/home')}>
+						onClick={toggleDrawer('left', true)}>
 						<MenuIcon />
 					</IconButton>
 				) : (
 					<IconButton
 						edge='start'
 						className={classes.menuButton}
-						aria-label='home'>
+						aria-label='home'
+						onClick={() => history.push('/home')}>
 						<DoneOutlineIcon />
 					</IconButton>
 				)}
-				{isAuthenticated ? authLinks : guestLinks}
+				<Hidden only={['xs']}>
+					{isAuthenticated ? authLinks : guestLinks}
+				</Hidden>
+				<SwipeableDrawer
+					anchor={'left'}
+					open={state['left']}
+					// className={classes.drawer}
+					onClose={toggleDrawer('left', false)}
+					onOpen={toggleDrawer('left', true)}>
+					{list('left')}
+				</SwipeableDrawer>
 			</Toolbar>
 		</AppBar>
 	)
