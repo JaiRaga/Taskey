@@ -178,12 +178,14 @@ const Navbar = () => {
 			onKeyDown={toggleDrawer(anchor, false)}>
 			<List>
 				{/* Requires attention */}
-				<ListItem>
-					<ListItemIcon>
-						<Avatar variant='rounded' />
-					</ListItemIcon>
-					<ListItemText primary='Raga' />
-				</ListItem>
+				<Link to='/profile' underline='none' className={classes.link}>
+					<ListItem>
+						<ListItemIcon>
+							<Avatar variant='rounded' />
+						</ListItemIcon>
+						<ListItemText primary='Raga' />
+					</ListItem>
+				</Link>
 				<Divider className={classes.drawerDivider} />
 				{[
 					{ name: 'Tasks', icon: <HomeIcon />, url: '/home' },
