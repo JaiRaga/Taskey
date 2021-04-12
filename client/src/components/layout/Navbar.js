@@ -1,8 +1,9 @@
 import React, { Fragment, useState } from 'react'
 import {
 	AppBar,
+	Avatar,
 	Toolbar,
-	Grid,
+	Divider,
 	IconButton,
 	Typography,
 	makeStyles,
@@ -61,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	drawerRight: {
 		marginLeft: 25,
+	},
+	drawerDivider: {
+		backgroundColor: '#2b2e4a',
 	},
 }))
 
@@ -173,6 +177,14 @@ const Navbar = () => {
 			onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}>
 			<List>
+				{/* Requires attention */}
+				<ListItem>
+					<ListItemIcon>
+						<Avatar variant='rounded' />
+					</ListItemIcon>
+					<ListItemText primary='Raga' />
+				</ListItem>
+				<Divider className={classes.drawerDivider} />
 				{[
 					{ name: 'Tasks', icon: <HomeIcon />, url: '/home' },
 					{ name: 'Profile', icon: <PersonPinIcon />, url: '/profile' },
