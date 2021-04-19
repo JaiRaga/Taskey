@@ -93,6 +93,15 @@ const Navbar = () => {
 						<ListItemIcon className={classes.icons}>
 							<HomeIcon />
 						</ListItemIcon>
+						<ListItemText primary='Home' />
+					</ListItem>
+				</Link>
+
+				<Link to='/tasks' className={classes.link} underline='none'>
+					<ListItem button>
+						<ListItemIcon className={classes.icons}>
+							<HomeIcon />
+						</ListItemIcon>
 						<ListItemText primary='Tasks' />
 					</ListItem>
 				</Link>
@@ -188,12 +197,17 @@ const Navbar = () => {
 				</Link>
 				<Divider className={classes.drawerDivider} />
 				{[
-					{ name: 'Tasks', icon: <HomeIcon />, url: '/home' },
+					{ name: 'Home', icon: <HomeIcon />, url: '/home' },
+					{ name: 'Tasks', icon: <HomeIcon />, url: '/tasks' },
 					{ name: 'Profile', icon: <PersonPinIcon />, url: '/profile' },
 					{ name: 'Setting', icon: <AdjustIcon />, url: '/setting' },
 					{ name: 'Logout', icon: <DirectionsRunIcon />, url: '/' },
 				].map((page, index) => (
-					<Link to={page.url} underline='none' className={classes.link}>
+					<Link
+						to={page.url}
+						key={page.name}
+						underline='none'
+						className={classes.link}>
 						<ListItem button key={page.name}>
 							<ListItemIcon className={classes.icons}>{page.icon}</ListItemIcon>
 							<ListItemText
