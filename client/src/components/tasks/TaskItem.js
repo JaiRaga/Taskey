@@ -16,7 +16,7 @@ import EventBusyIcon from '@material-ui/icons/EventBusy'
 const useStyles = makeStyles((theme) => ({
 	margin: {
 		margin: 10,
-		padding: '40px 10px 40px 40px',
+		padding: '40px 10px 15px 40px',
 		marginBottom: 30,
 		backgroundColor: (props) => (props.completed ? '#99ff99' : '#e0e0d1'),
 	},
@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	deleteIcon: {
 		backgroundColor: theme.palette.deleteIcon,
+	},
+	date: {
+		marginTop: 15,
 	},
 	// icons: {
 	//     display: 'flex'
@@ -73,6 +76,18 @@ const TaskItem = ({ task }) => {
 							</IconButton>
 						</Grid>
 					</Grid>
+				</Grid>
+			</Grid>
+			<Grid
+				container
+				item
+				justify='flex-end'
+				alignItems='flex-end'
+				className={classes.date}>
+				<Grid item>
+					{task.createdAt === task.updatedAt
+						? new Date(task.createdAt).toString()
+						: task.updatedAt}
 				</Grid>
 			</Grid>
 		</Paper>
