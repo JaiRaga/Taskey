@@ -13,6 +13,7 @@ import Tasks from '../tasks/Tasks'
 import { loadTasks } from '../../redux/actions/task'
 import CreateTask from '../tasks/CreateTask'
 import { Fragment } from 'react'
+import { useHistory } from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
 	root: {},
@@ -35,13 +36,20 @@ const Home = () => {
 		setTimeout(() => dispatch(loadTasks()), 300)
 	}, [])
 	const classes = useStyles()
-	const tasks = useSelector((state) => state.task.tasks)
+	let tasks = useSelector((state) => state.task.tasks)
+
+	const history = useHistory()
+
+	if (history.location.pathname === '/tasks') {
+		tasks = tasks.filter((task) => task.completed === false)
+		console.log(tasks)
+	}
 
 	return (
 		<Grid container justify='center' className={classes.root}>
 			<Hidden only={['xs']}>
-				<Grid item xs={0} sm={2} md={3} className={classes.sides}>
-					<CreateTask />
+				<Grid item sm={2} md={3} className={classes.sides}>
+					{/* <CreateTask /> */}
 				</Grid>
 			</Hidden>
 
@@ -76,7 +84,7 @@ const Home = () => {
 			</Grid>
 
 			<Hidden only={['xs']}>
-				<Grid item xs={0} sm={2} md={3} className={classes.sides}>
+				<Grid item sm={2} md={3} className={classes.sides}>
 					Sides
 				</Grid>
 			</Hidden>
