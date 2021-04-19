@@ -72,7 +72,7 @@ const Navbar = () => {
 	const classes = useStyles()
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const screenSize = useMediaQuery('(max-width:600px)')
+	const screenSize = useMediaQuery('(max-width:960px)')
 	const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
 
 	const authLinks = (
@@ -241,7 +241,7 @@ const Navbar = () => {
 						<DoneOutlineIcon />
 					</IconButton>
 				)}
-				<Hidden only={['xs']}>
+				<Hidden only={['xs', 'sm']}>
 					{isAuthenticated ? authLinks : guestLinks}
 				</Hidden>
 				<SwipeableDrawer
