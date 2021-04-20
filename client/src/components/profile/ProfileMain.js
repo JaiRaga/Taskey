@@ -1,5 +1,12 @@
 import React from 'react'
-import { Avatar, Grid, makeStyles, useMediaQuery } from '@material-ui/core'
+import {
+	Avatar,
+	Grid,
+	IconButton,
+	makeStyles,
+	useMediaQuery,
+} from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
 
 const useStyles = makeStyles((theme) => ({
 	small: {
@@ -36,8 +43,16 @@ const ProfileMain = () => {
 					className={classes.info}
 					direction='column'
 					spacing={1}>
-					<Grid item>Name</Grid>
+					<Grid item>Name: firstname lastname</Grid>
 					<Grid item>completed: 100</Grid>
+					<Grid item>
+						<Grid container item spacing={3}>
+							<Grid item>email: email@test.com</Grid>
+							<IconButton size='small' color='primary'>
+								<CloseIcon />
+							</IconButton>
+						</Grid>
+					</Grid>
 				</Grid>
 			</Grid>
 		</Grid>
