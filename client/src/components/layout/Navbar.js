@@ -115,14 +115,14 @@ const Navbar = () => {
 					</ListItem>
 				</Link>
 
-				<Link to='/settings' className={classes.link} underline='none'>
+				{/* <Link to='/settings' className={classes.link} underline='none'>
 					<ListItem button>
 						<ListItemIcon className={classes.icons}>
 							<AdjustIcon />
 						</ListItemIcon>
 						<ListItemText primary='Setting' />
 					</ListItem>
-				</Link>
+				</Link> */}
 
 				<Link to='/' className={classes.link} underline='none'>
 					<ListItem button onClick={() => dispatch(logout())}>
@@ -200,7 +200,7 @@ const Navbar = () => {
 					{ name: 'Home', icon: <HomeIcon />, url: '/home' },
 					{ name: 'Tasks', icon: <HomeIcon />, url: '/tasks' },
 					{ name: 'Profile', icon: <PersonPinIcon />, url: '/profile' },
-					{ name: 'Setting', icon: <AdjustIcon />, url: '/setting' },
+					// { name: 'Setting', icon: <AdjustIcon />, url: '/setting' },
 					{ name: 'Logout', icon: <DirectionsRunIcon />, url: '/' },
 				].map((page, index) => (
 					<Link
