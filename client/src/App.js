@@ -45,7 +45,7 @@ function App() {
 					<PrivateRoute exact path='/home' component={Home} />
 					<PrivateRoute exact path='/tasks' component={Home} />
 					<PrivateRoute exact path='/profile' component={Profile} />
-					<PrivateRoute exact path='/settings' component={Setting} />
+					{/* <PrivateRoute exact path='/settings' component={Setting} /> */}
 					{/* <Route exact path='/dashboard' component={Dashboard} />
             <Route exact path='/tasks' component={Tasks} />
             <Route exact path='/task/:id' component={Task} />
