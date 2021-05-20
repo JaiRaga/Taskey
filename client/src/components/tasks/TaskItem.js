@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, Fragment, useEffect } from 'react'
 import {
 	Grid,
 	Paper,
@@ -7,11 +7,15 @@ import {
 	ButtonBase,
 	IconButton,
 	Typography,
+	TextField,
 } from '@material-ui/core'
 import { green } from '@material-ui/core/colors'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle'
+import CloseIcon from '@material-ui/icons/Close'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import EventBusyIcon from '@material-ui/icons/EventBusy'
+import { useDispatch } from 'react-redux'
+import { updateTask, deleteTask } from '../../redux/actions/task'
 
 const useStyles = makeStyles((theme) => ({
 	margin: {
@@ -25,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 	completed: {
 		color: green[700],
+	},
+	close: {
+		color: '#ee0000',
 	},
 	editIcon: {
 		backgroundColor: theme.palette.editIcon,
@@ -44,9 +51,46 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const TaskItem = ({ task }) => {
-	const completed = task.completed
+	// Complete Task
+	const [completed, setCompleted] = useState(task.completed)
+	// let completed = task.completed
+
+	// for styling
 	const classes = useStyles({ completed })
-	console.log(task.description.length, task.description)
+
+	const dispatch = useDispatch()
+
+	// for modifing tasks complete state
+	const handleComplete = () => {
+		console.log('complete', completed, !completed)
+		setCompleted((prev) => !prev)
+		// completed = !completed
+		console.log('complete', completed)
+	}
+
+	// Edit task
+	const [edit, setEdit] = useState(false)
+	const [description, setDescription] = useState(task.description)
+
+	const toggleEdit = () => {
+		console.log('Edit modal')
+		setEdit(true)
+	}
+
+	const handleEdit = () => {
+		dispatch(updateTask(description, task.completed, task._id))
+		setEdit(false)
+	}
+
+	const handleChange = (e) => {
+		console.log(e.target.value)
+		setDescription(e.target.value)
+	}
+
+	useEffect(() => {
+		dispatch(updateTask(task.description, completed, task._id))
+	}, [completed])
+
 	return (
 		// <Grid container item justify="center">
 		//     <Grid item>
@@ -54,24 +98,44 @@ const TaskItem = ({ task }) => {
 			<Grid container item>
 				<Grid item xs={8}>
 					<Typography align='center' className={classes.description}>
-						{task.description}
+						{edit ? (
+							<Grid container item direction='column'>
+								<TextField
+									id='edit-task'
+									label='Edit task'
+									varaint='filled'
+									multiline
+									value={description}
+									onChange={handleChange}
+								/>
+								<Button onClick={handleEdit}>Edit</Button>
+							</Grid>
+						) : (
+							task.description
+						)}
 					</Typography>
 				</Grid>
 
 				<Grid item xs={4} className={classes.icons}>
 					<Grid container item className={classes.icon} justify='center'>
 						<Grid item>
-							<IconButton className={classes.completed}>
-								<CheckCircleIcon />
+							<IconButton onClick={handleComplete}>
+								{completed ? (
+									<CloseIcon className={classes.close} />
+								) : (
+									<CheckCircleIcon className={classes.completed} />
+								)}
 							</IconButton>
 						</Grid>
 						<Grid item>
-							<IconButton color='primary'>
+							<IconButton color='primary' onClick={toggleEdit}>
 								<EventBusyIcon />
 							</IconButton>
 						</Grid>
 						<Grid item>
-							<IconButton color='secondary'>
+							<IconButton
+								color='secondary'
+								onClick={() => dispatch(deleteTask(task._id))}>
 								<DeleteOutlineIcon />
 							</IconButton>
 						</Grid>
