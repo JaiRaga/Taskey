@@ -14,7 +14,7 @@ const ProfileNav = () => {
 	return (
 		<Grid container item className={classes.container} direction='column'>
 			{tabs.map((tab) => (
-				<Grid item>
+				<Grid item key={tab}>
 					<ProfileNavItem tab={tab} />
 				</Grid>
 			))}
